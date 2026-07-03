@@ -23,19 +23,31 @@ Images that exist only in the clipboard (Universal Clipboard, "Copy Image"
 in a browser, screenshot-to-clipboard) are saved; images that are already
 files on disk are left alone.
 
+By default images are saved to `~/Downloads`. Override the destination with
+the `CLIPBOARD_AUTOSAVE_DIR` environment variable — no need to edit the
+source.
+
 ## Install
 
-1. Edit the two paths at the top of `clipboard-image-auto-save.swift`
-   (`saveDir`, `stateDir`) to taste.
-
-2. Compile:
+1. Compile:
 
    ```sh
    swiftc -O -o clipboard-image-auto-save clipboard-image-auto-save.swift
    ```
 
-3. Edit `com.noki.clipboard-image-auto-save.plist` so `ProgramArguments`
-   points at the compiled binary, then:
+2. Edit `com.noki.clipboard-image-auto-save.plist` so `ProgramArguments`
+   points at the compiled binary. Optionally set `CLIPBOARD_AUTOSAVE_DIR` in
+   an `EnvironmentVariables` dict to save somewhere other than `~/Downloads`:
+
+   ```xml
+   <key>EnvironmentVariables</key>
+   <dict>
+     <key>CLIPBOARD_AUTOSAVE_DIR</key>
+     <string>/Users/you/Pictures/ClipboardSaves</string>
+   </dict>
+   ```
+
+3. Install and load it:
 
    ```sh
    cp com.noki.clipboard-image-auto-save.plist ~/Library/LaunchAgents/
