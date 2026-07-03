@@ -1,11 +1,11 @@
-// Saves clipboard image to 90_Inbox/ScreenShots only when the image content changes.
+// Saves clipboard image to ~/Downloads only when the image content changes.
 // Long-running watcher: polls NSPasteboard.changeCount every 0.2s (launchd KeepAlive).
 
 import AppKit
 import CryptoKit
 import Darwin
 
-let saveDir = ("~/00_Home_Local/90_Inbox/ScreenShots" as NSString).expandingTildeInPath
+let saveDir = ((ProcessInfo.processInfo.environment["CLIPBOARD_AUTOSAVE_DIR"] ?? "~/Downloads") as NSString).expandingTildeInPath
 let stateDir = ("~/.local/state/raycast-save-clipboard-image" as NSString).expandingTildeInPath
 let lastHashFile = stateDir + "/last_image_sha256"
 
